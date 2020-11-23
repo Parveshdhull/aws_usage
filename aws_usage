@@ -1,0 +1,32 @@
+#!/bin/python3
+
+import re
+import subprocess
+from pynotifier import Notification
+from datetime import date, datetime
+from calendar import monthrange
+
+pattern = rb'(Amount": ")(.*)(",)'
+
+def usage(output):
+	matches = re.findall(pattern, output)
+	usage = matches[0][1].decode('utf-8') + '0000'
+	return usage[:4]
+
+month = datetime.now().strftime('%m')
+year = datetime.now().strftime('%Y')
+today = str(date.today())
+
+days = str(monthrange(int(year), int(month))[1])
+
+cmd = 'aws ce get-cost-and-usage --time-period Start='+year+'-'+month+'-01,End='+year+'-'+month+'-'+days+' --granularity MONTHLY --metrics "UsageQuantity" --filter file://filter.json'
+
+result = subprocess.check_output(cmd, shell=True)
+
+message = '*Date: '+today+'*\n'
+message += '_Usage: ' + usage(result) + ' GB_\n'
+
+Notification(title='Usage Alert',description= message, duration=7).send()
+
+# Change Channel Name for slack
+subprocess.call(["slackbot", "-c", "aws-alerts", "-m", message])
