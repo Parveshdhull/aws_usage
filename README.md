@@ -8,6 +8,7 @@ This program uses Cost Explorer API which charges of $0.01 per request
 
 ## Prerequisite:
 pip install py-notifier
+
 pacman -s aws-cli or apt-get install awscli
 
 ## Configure
@@ -19,11 +20,13 @@ You can skip this step if you only want to receive desktop notifications. Just r
 https://github.com/Parveshdhull/slackbot
 * **Configure filter.json**
 filter.json file tells program which data to reterive using API. I tried different regions and value of USAGE_TYPE variable was different for different regions. You can find value of 'DataTransfer-Out-Bytes' for your region using
-```aws ce get-dimension-values --time-period Start=2020-10-01,End=2020-10-31 --dimension USAGE_TYPE```
-Some of values I found were
-    APN1-DataTransfer-Out-Bytes
-    APS1-DataTransfer-Out-Bytes
-    USW1-DataTransfer-Out-Bytes
+
+	``` aws ce get-dimension-values --time-period Start=2020-10-01,End=2020-10-31 --dimension USAGE_TYPE```
+
+Some of values I found were<br>
+* APN1-DataTransfer-Out-Bytes<br>
+* APS1-DataTransfer-Out-Bytes<br>
+* USW1-DataTransfer-Out-Bytes
 
 ## Usage
 
