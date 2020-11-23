@@ -4,7 +4,7 @@ Python program for send alerts for data transfer usage under free tier in aws to
 
 
 ## WARNING
-This program uses Cost Explorer API which charges of $0.01 per request 
+This program uses Cost Explorer API which charges $0.01 per request 
 
 ## Prerequisite:
 pip install py-notifier
